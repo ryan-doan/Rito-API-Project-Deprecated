@@ -1,7 +1,0 @@
-id:53WQbWIV5p2c06miXPk-a6MA0kOcY6gczPuOYMkUiwSZhTRE
-accountId:cJClN8EljVGQoeXYpJ1AgBm1H03WQQmOa4nhoHypexAjSOyNgGmvxMzB
-puuid:blF2qA0aOJXD5hdARETARlLgdsmnKa5c6MQtMIhDIi3WqZHcU3LWOB7mBFYEq5clUCfoaZKXgdZhhg
-name:emtraizeros
-profileIconId:4244
-revisionDate:1629861258000
-summonerLevel:72
