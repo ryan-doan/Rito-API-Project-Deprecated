@@ -5,7 +5,6 @@
  */
 
 public class RankQueue {
-    String leagueId;
     String queueType;
     String tier;
     int rank;
@@ -13,12 +12,12 @@ public class RankQueue {
     int wins;
     int losses;
     boolean veteran;
+    boolean inactive;
     boolean freshBlood;
     boolean hotStreak;
 
-    public RankQueue (String leagueId, String queueType, String tier, int rank, int leaguePoints,
-                      int wins, int losses, boolean veteran, boolean freshBlood, boolean hotStreak) {
-        this.leagueId = leagueId;
+    public RankQueue (String queueType, String tier, int rank, int leaguePoints,
+                      int wins, int losses, boolean veteran, boolean inactive, boolean freshBlood, boolean hotStreak) {
         this.queueType = queueType;
         this.tier = tier;
         this.rank = rank;
@@ -26,6 +25,7 @@ public class RankQueue {
         this.wins = wins;
         this.losses = losses;
         this.veteran = veteran;
+        this.inactive = inactive;
         this.freshBlood = freshBlood;
         this.hotStreak = hotStreak;
     }
