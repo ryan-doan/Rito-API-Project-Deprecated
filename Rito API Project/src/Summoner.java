@@ -9,6 +9,7 @@ public class Summoner {
     String accountId;
     String puuid;
     String name;
+    String revisionDate;
     int profileIconId;
     int summonerLevel;
     RankQueue soloQ;
@@ -24,5 +25,28 @@ public class Summoner {
         this.summonerLevel = summonerLevel;
         this.soloQ = soloQ;
         this.flex = flex;
+    }
+
+    public Summoner(String id, String accountId, String puuid, String name, int profileIconId, String revisionDate,
+                    int summonerLevel) {
+        this.id = id;
+        this.accountId = accountId;
+        this.puuid = puuid;
+        this.name = name;
+        this.profileIconId = profileIconId;
+        this.revisionDate = revisionDate;
+        this.summonerLevel = summonerLevel;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public int getProfileIconId() {
+        return profileIconId;
+    }
+
+    public int getSummonerLevel() {
+        return summonerLevel;
     }
 }
