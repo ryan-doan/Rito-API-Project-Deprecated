@@ -18,17 +18,8 @@ public class Launcher implements ActionListener {
     StartingGUI startingGUI;
     PlayerProfileGUI playerProfileGUI;
 
-    String API_key = "?api_key=RGAPI-61e24667-0dba-41a6-a866-532ad8226a7f";
-    boolean validName = false;
+    String API_key = "?api_key=RGAPI-817c033f-2570-4f79-860c-439ddbf218ac";
     Font font;
-
-    String summonerName;
-    String summonerData;
-    String summonerID;
-    String accountID;
-    String PUUID;
-    int profileIconID;
-    int summonerLevel;
 
     public Launcher() {
         init();
@@ -59,73 +50,26 @@ public class Launcher implements ActionListener {
         if (e.getSource() == startingGUI.getSearchButton()) {
             System.out.println("StartingGUI/Search summoners");
 
-            summonerName = startingGUI.getUsername().getText();
-
             // Connects to Rito's API
             try {
-                URL url = new URL("https://na1.api.riotgames.com/lol/summoner/v4/summoners/by-name/" +
-                        summonerName.replaceAll(" ", "") + API_key);
-                HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+                Summoner player = search(startingGUI.getUsername().getText());
+                //Refer to the search method
 
-                //Get response code
-                int responseCode = connection.getResponseCode();
+                if (player != null) {
 
-                if (responseCode != 200) {
-                    System.out.println("You typed " + summonerName);
-                    startingGUI.getErrorLabel().setText("Incorrect username.. Try again!");
-                    startingGUI.getErrorLabel().setFont(font.deriveFont(18f));
-                }
-
-                if (responseCode == 200) {
-                    BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-                    validName = true;
-
-                    //Get player data
-                    summonerData = reader.readLine();
-
-                    // Formats data and put it into a txt file so its easier to read
-                    // TODO delete txt files at the end to save space, might have to find a better way to store data on
-                    // RAM but still makes it easier to read out from
-
-                    summonerData = summonerData.substring(1, summonerData.length() - 1).replaceAll("\"",
-                            "").replaceAll(",", "\n");
-
-                    String nameFilename = summonerName + ".txt";
-
-                    PrintWriter writer = new PrintWriter(new FileWriter(nameFilename));
-
-                    writer.println(summonerData);
-                    writer.flush();
-                    writer.close();
-
-                    FileReader fileReader = new FileReader(nameFilename);
-                    try (BufferedReader br = new BufferedReader(fileReader)) {
-                        String line;
-                        while ((line = br.readLine()) != null) {
-                            String[] summonerAccountDetails = line.split(":");
-
-                            switch (summonerAccountDetails[0]) {
-                                case "profileIconId" -> profileIconID = Integer.parseInt(summonerAccountDetails[1]);
-                                case "summonerLevel" -> summonerLevel = Integer.parseInt(summonerAccountDetails[1]);
-                            }
-                        }
-
-                        fileReader.close();
-                    } catch (IOException exception) {
-                        exception.printStackTrace();
-                    }
-                    System.out.println("Player's profileIconID is " + profileIconID);
-                    System.out.println("Player's level is " + summonerLevel);
+                    System.out.println("Player's profileIconID is " + player.getProfileIconId());
+                    System.out.println("Player's level is " + player.getSummonerLevel());
 
                     startingGUI.getFrame().setVisible(false);
                     playerProfileGUI.getFrame().setVisible(true);
-                    playerProfileGUI.getNameAndLevel().setText(summonerName + "\n");
-                    playerProfileGUI.getNameAndLevel().append("<Level " + summonerLevel + ">");
+                    playerProfileGUI.getNameAndLevel().setText(player.getName() + "\n");
+                    playerProfileGUI.getNameAndLevel().append("<Level " + player.getSummonerLevel() + ">");
 
                     try {
                         ImageIcon imageIcon = new ImageIcon(new URL("http://ddragon.leagueoflegends.com/cdn/" +
-                                "11.16.1/img/profileicon/" + profileIconID + ".png"));
-                        Image image = imageIcon.getImage().getScaledInstance(75, 75, java.awt.Image.SCALE_SMOOTH);
+                                "11.16.1/img/profileicon/" + player.getProfileIconId() + ".png"));
+                        Image image = imageIcon.getImage().getScaledInstance(75, 75,
+                                java.awt.Image.SCALE_SMOOTH);
 
                         imageIcon = new ImageIcon(image);
 
@@ -134,12 +78,63 @@ public class Launcher implements ActionListener {
                         exception.printStackTrace();
                     }
 
+                } else {
+                    System.out.println("You typed " + player.getName());
+                    startingGUI.getErrorLabel().setText("Incorrect username.. Try again!");
+                    startingGUI.getErrorLabel().setFont(font.deriveFont(18f));
                 }
 
-            } catch (IOException exception) {
+            } catch (Exception exception) {
                 exception.printStackTrace();
                 System.out.println("Error");
             }
         }
     }
+
+    public Summoner search(String summonerName) throws Exception {
+        //Connects to Rito's API
+
+        URL url = new URL("https://na1.api.riotgames.com/lol/summoner/v4/summoners/by-name/" +
+                summonerName.replaceAll(" ", "") + API_key);
+        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+        BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+
+        if (connection.getResponseCode() == 200) {  //Making sure the player exists before we do anything else
+            //Get player data
+
+            String rawData = reader.readLine();
+            reader.close();
+
+            // Formats data
+
+            rawData = rawData.substring(1, rawData.length() - 1).replaceAll("\"",
+                    "");
+
+            String[] summonerData = rawData.split(",");
+
+            return newSummoner(summonerData);  //Refer to newSummoner method
+        }
+
+        return null;
+    }
+
+    public Summoner newSummoner(String[] summonerData) {
+        //formats data from the string[] and use it to create a new player object
+
+        Summoner player = new Summoner(summonerData[0].replaceAll("id:", ""),
+                summonerData[1].replaceAll("adccountId", ""),
+                summonerData[2].replaceAll("puuid:", ""),
+                summonerData[3].replaceAll("name:", ""),
+                Integer.parseInt(summonerData[4].replaceAll("profileIconId:", "")),
+                summonerData[5].replaceAll("revisionDate:", ""),
+                Integer.parseInt(summonerData[6].replaceAll("summonerLevel:", "")));
+
+        return player;
+    }
+
+    public static void skipLine(BufferedReader reader, int lines) throws Exception {
+        for (int i = 0; i < lines; i++) {
+            reader.readLine();
+        }
+    }  //this is to skip multiple lines on a txt file
 }
