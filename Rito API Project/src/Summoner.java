@@ -49,4 +49,16 @@ public class Summoner {
     public int getSummonerLevel() {
         return summonerLevel;
     }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setSoloQ(RankQueue soloQ) {
+        this.soloQ = soloQ;
+    }
+
+    public void setFlex(RankQueue flex) {
+        this.flex = flex;
+    }
 }
