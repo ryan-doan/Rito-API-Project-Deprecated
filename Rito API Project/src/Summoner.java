@@ -1,7 +1,7 @@
 /*
  * Summoner
  *
- * For storing data, replacing txt files in the future
+ * For storing data while app is open, replacing txt files in the future
  */
 
 public class Summoner {
