@@ -1,0 +1,7 @@
+id:X7udtGY0Mi-aazkwWbIYb11J1gNmfJRKpZPeglirdlGTeXw
+accountId:aPOtpsl0y0AlARSSn1_OjnDczRSXjByHU-0UmqyGFoUsgQc
+puuid:ObhpPrmgnKh3BnNIPFp_THA4hoOgqX1XoifNDwQYyEAghtyYNtugZ0FNRJkD2vazPiyN7aHsuWH0bA
+name:awe
+profileIconId:3623
+revisionDate:1629939089000
+summonerLevel:521

@@ -11,7 +11,7 @@ public class PlayerProfileGUI {
     JLabel profilePic;
     JTextArea nameAndLevel;
     Font font;
-    Color lightRed, lighterRed;
+    Color black, grey;
 
     public static void main(String[] args) {
         new PlayerProfileGUI();
@@ -24,16 +24,16 @@ public class PlayerProfileGUI {
         } catch (IOException | FontFormatException e) {
             e.printStackTrace();
         }
-        lightRed = new Color(252, 171, 193);
-        lighterRed = new Color(252, 211, 221);
+        black = new Color(59, 11, 59);
+        grey = new Color(86, 24, 86);
 
         frame = new JFrame("Profile");
         panel = new JPanel(null);
-        panel.setBackground(lightRed);
+        panel.setBackground(black);
 
         infoPanel = new JPanel(null);
         infoPanel.setBounds(20, 20, 245, 120);
-        infoPanel.setBackground(lighterRed);
+        infoPanel.setBackground(grey);
         frame.add(infoPanel);
 
         profilePic = new JLabel();
@@ -43,7 +43,8 @@ public class PlayerProfileGUI {
         nameAndLevel = new JTextArea();
         nameAndLevel.setBounds(105, 20, 200, 100);
         nameAndLevel.setFont(font.deriveFont(25f));
-        nameAndLevel.setBackground(lighterRed);
+        nameAndLevel.setForeground(Color.white);
+        nameAndLevel.setBackground(grey);
         nameAndLevel.setEditable(false);
         infoPanel.add(nameAndLevel);
 

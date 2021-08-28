@@ -1,0 +1,7 @@
+id:QvvOa1G5-u5QtTb6IlHhgPjA_QShUWP6u5-hp0s46E8KdV_B
+accountId:4O75kgTvE80GWunTAvPKvfIF3WTSQuIg4ohcsOfIpZYcS0RWGQQr1qJ5
+puuid:hhI1Ft53TNp-6K7Y1Ymfl7aCllHPvtyVFTdbVGqHV089ws5CGby3nTmGF8mEIzIq949Pq2H_zfCfZA
+name:skyoisayohyea
+profileIconId:23
+revisionDate:1629861253000
+summonerLevel:70
