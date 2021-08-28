@@ -32,11 +32,9 @@ public class GUI {
 
             try {
                 //Connects to Rito's API
-
                 URL url = new URL ("https://na1.api.riotgames.com/lol/summoner/v4/summoners/by-name/" +
                         summonerName.replaceAll(" ", "") + API_key);
                 HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-
                 BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
 
                 //Get response code
@@ -52,8 +50,8 @@ public class GUI {
                 if (responseCode == 200) {  //Making sure the player exists before we do anything else
                     validName = true;
 
-                    //Formats data and put it into a txt file so its easier to read
-                    //TODO delete txt files at the end to save space, might have to find a better way to store data on
+                    // Formats data and put it into a txt file so its easier to read
+                    // TODO delete txt files at the end to save space, might have to find a better way to store data on
                     // RAM but still makes it easier to read out from
 
                     summonerData = summonerData.substring(1, summonerData.length() - 1).replaceAll("\"",
@@ -79,7 +77,6 @@ public class GUI {
                     fileReader.close();
 
                     //Player found, display data
-
                     System.out.println("Valid");
                     JPanel profile = new JPanel();
                     profile.setSize(450, 800);
@@ -120,7 +117,7 @@ public class GUI {
         // Initialises JFrame
 
         frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-        frame.setSize(450, 800);
+        frame.setSize(850, 800);
         frame.setLocationRelativeTo(null);
         frame.setLayout(new GridBagLayout());
 
