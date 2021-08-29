@@ -18,7 +18,7 @@ public class Launcher implements ActionListener {
     StartingGUI startingGUI;
     PlayerProfileGUI playerProfileGUI;
 
-    String API_key = "?api_key=RGAPI-817c033f-2570-4f79-860c-439ddbf218ac";
+    String API_key = "?api_key=RGAPI-223634df-6dfb-4fcd-95df-c3d24f575056";
     Font font;
 
     public Launcher() {
@@ -108,9 +108,11 @@ public class Launcher implements ActionListener {
                     startingGUI.getErrorLabel().setFont(font.deriveFont(18f));
                 }
 
+            } catch (FileNotFoundException exception) {
+                startingGUI.getErrorLabel().setText("Username doesn't exists");
+                startingGUI.getErrorLabel().setFont(font.deriveFont(18f));
             } catch (Exception exception) {
                 exception.printStackTrace();
-                System.out.println("Error");
             }
         }
     }
