@@ -6,12 +6,24 @@ import java.io.File;
 import java.io.IOException;
 
 public class PlayerProfileGUI {
-    JFrame frame;
-    JPanel panel, infoPanel;
-    JLabel profilePic;
-    JTextArea nameAndLevel;
     Font font;
     Color black, grey;
+    JFrame frame;
+    JPanel panel;
+
+    //  Basic player info panel
+
+    JPanel infoPanel;
+    JLabel profilePic;
+    JTextArea nameAndLevel;
+
+    //  Ranked panel
+
+    JPanel rankedPanel = new JPanel(null);
+    JLabel soloQPic = new JLabel();
+    JTextArea soloQText = new JTextArea();
+    JLabel flexQPic = new JLabel();
+    JTextArea flexQText = new JTextArea();
 
     public static void main(String[] args) {
         new PlayerProfileGUI();
@@ -48,6 +60,30 @@ public class PlayerProfileGUI {
         nameAndLevel.setEditable(false);
         infoPanel.add(nameAndLevel);
 
+        rankedPanel.setBounds(20, 150, 245,150);
+        rankedPanel.setBackground(grey);
+        frame.add(rankedPanel);
+
+        soloQPic.setBounds(20, 20, 75, 75);
+        rankedPanel.add(soloQPic);
+
+        soloQText.setBounds(20, 100, 100, 50);
+        soloQText.setFont(font.deriveFont(12f));
+        soloQText.setForeground(Color.white);
+        soloQText.setBackground(grey);
+        soloQText.setEditable(false);
+        rankedPanel.add(soloQText);
+
+        flexQPic.setBounds(150, 20, 75, 75);
+        rankedPanel.add(flexQPic);
+
+        flexQText.setBounds(150, 100, 100, 50);
+        flexQText.setFont(font.deriveFont(12f));
+        flexQText.setForeground(Color.white);
+        flexQText.setBackground(grey);
+        flexQText.setEditable(false);
+        rankedPanel.add(flexQText);
+
         frame.setSize(300, 600);
         frame.setLocationRelativeTo(null);
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -70,5 +106,21 @@ public class PlayerProfileGUI {
 
     public JLabel getProfilePic() {
         return profilePic;
+    }
+
+    public JLabel getSoloQPic() {
+        return soloQPic;
+    }
+
+    public JTextArea getSoloQText() {
+        return soloQText;
+    }
+
+    public JLabel getFlexQPic() {
+        return flexQPic;
+    }
+
+    public JTextArea getFlexQText() {
+        return flexQText;
     }
 }

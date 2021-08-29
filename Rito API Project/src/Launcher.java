@@ -1,6 +1,8 @@
 import Views.PlayerProfileGUI;
 import Views.StartingGUI;
 
+import javax.imageio.ImageIO;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -77,10 +79,43 @@ public class Launcher implements ActionListener {
                     } catch (Exception exception) {
                         exception.printStackTrace();
                     }
-                    
+
                     //set player variable's rank data. See rankData method for more information
-                    
+
                     rankedData(player);
+
+                    System.out.println(player.getFlex().toString());
+                    System.out.println(player.getSoloQ().toString());
+
+                    //display player's ranked data
+
+                    Image soloQ = new ImageIcon(String.format("Emblem_%s.png",player.getSoloQ().getTier())).getImage()
+                            .getScaledInstance(75, 75, Image.SCALE_SMOOTH);
+                    Image flexQ = new ImageIcon(String.format("Emblem_%s.png",player.getFlex().getTier())).getImage()
+                            .getScaledInstance(75, 75, Image.SCALE_SMOOTH);
+
+                    try {
+                        BufferedImage bi = new BufferedImage(75, 75,
+                                BufferedImage.TYPE_INT_ARGB);
+                        Graphics2D bGr = bi.createGraphics();
+                        bGr.drawImage(soloQ, 0, 0, null);
+                        bGr.dispose();
+                        File output = new File("soloQ.png");
+                        ImageIO.write(bi, "png", output);
+                    } catch (Exception exception) {
+                        exception.printStackTrace();
+                    }
+
+                    playerProfileGUI.getSoloQPic().setIcon(new ImageIcon(soloQ));
+                    playerProfileGUI.getSoloQText().setText(String.format("SoloQ\n%s %s", player.getSoloQ().getTier(),
+                            player.getSoloQ().getRank()));
+
+                    playerProfileGUI.getFlexQPic().setIcon(new ImageIcon(flexQ));
+                    playerProfileGUI.getFlexQText().setText(String.format("Flex\n%s %s", player.getFlex().getTier(),
+                            player.getFlex().getRank()));
+
+                    playerProfileGUI.getFrame().setVisible(true);
+
                 } else {
                     System.out.println("You typed " + player.getName());
                     startingGUI.getErrorLabel().setText("Incorrect username.. Try again!");
@@ -143,57 +178,58 @@ public class Launcher implements ActionListener {
         String rawData = reader.readLine();
 
         if (rawData.length() < 5) {  //player doesn't play ranked
-            
-            player.setSoloQ(null);
-            player.setFlex(null);
-            
+
+            player.setSoloQ(new RankQueue("RANKED_SOLO_5x5"));
+            player.setFlex(new RankQueue("RANKED_FLEX_SR"));
+
         } else {
-            
+
             rawData = rawData.substring(1, rawData.length() - 1).replaceAll("[\"{}]",
                     "").replaceAll("[a-zA-Z]*:", "");
 
             String[] rankedData = rawData.split(",");
 
             if (rankedData.length < 14) {  //only 1 rank queue
-                
+
                 if (rankedData[1].equals("RANKED_SOLO_5x5")) {
                     //  see rankQueue method in this class
 
                     player.setSoloQ(rankQueue(rankedData));
+                    player.setFlex(new RankQueue("RANKED_FLEX_SR"));
                 } else {
+                    player.setSoloQ(new RankQueue("RANKED_SOLO_5x5"));
                     player.setFlex(rankQueue(rankedData));
                 }
-                
+
             } else {  //both rank queue
-                
+
                 player.setSoloQ(rankQueue(rankedData));
-                player.setFlex(new RankQueue(rankedData[14], rankedData[15], Integer.parseInt(rankedData[16]),
+                player.setFlex(new RankQueue(rankedData[14], rankedData[15], rankedData[16],
                         Integer.parseInt(rankedData[19]), Integer.parseInt(rankedData[20]),
                         Integer.parseInt(rankedData[21]), Boolean.parseBoolean(rankedData[22]),
                         Boolean.parseBoolean(rankedData[23]), Boolean.parseBoolean(rankedData[24]),
                         Boolean.parseBoolean(rankedData[25])));
-                
             }
-            
+
         }
 
     }
 
     public RankQueue rankQueue(String[] rankedData) {
-        
-        return new RankQueue(rankedData[1], rankedData[2], Integer.parseInt(rankedData[3]),
+
+        return new RankQueue(rankedData[1], rankedData[2], rankedData[3],
                 Integer.parseInt(rankedData[6]), Integer.parseInt(rankedData[7]),
                 Integer.parseInt(rankedData[8]), Boolean.parseBoolean(rankedData[9]),
                 Boolean.parseBoolean(rankedData[10]), Boolean.parseBoolean(rankedData[11]),
                 Boolean.parseBoolean(rankedData[12]));
-        
+
     }  //create a rankQueue object from the data in the String array
 
     public static void skipLine(BufferedReader reader, int lines) throws Exception {
-        
+
         for (int i = 0; i < lines; i++) {
             reader.readLine();
         }
-        
+
     }  //this is to skip multiple lines on a txt file
 }

@@ -9,7 +9,7 @@ import java.util.Scanner;
  * For testing random stuff
  */
 
-public class Test {
+public class test {
     public static void main(String[] args) {
         final String API_key = "?api_key=RGAPI-61e24667-0dba-41a6-a866-532ad8226a7f";
         String id = "";

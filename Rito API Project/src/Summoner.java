@@ -61,4 +61,12 @@ public class Summoner {
     public void setFlex(RankQueue flex) {
         this.flex = flex;
     }
+
+    public RankQueue getSoloQ() {
+        return this.soloQ;
+    }
+
+    public RankQueue getFlex() {
+        return this.flex;
+    }
 }
