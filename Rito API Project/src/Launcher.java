@@ -65,18 +65,16 @@ public class Launcher implements ActionListener {
                     playerProfileGUI.getNameAndLevel().setText(player.getName() + "\n");
                     playerProfileGUI.getNameAndLevel().append("<Level " + player.getSummonerLevel() + ">");
 
-                    try {
-                        ImageIcon imageIcon = new ImageIcon(new URL("http://ddragon.leagueoflegends.com/cdn/" +
+
+                    ImageIcon imageIcon = new ImageIcon(new URL("http://ddragon.leagueoflegends.com/cdn/" +
                                 "11.16.1/img/profileicon/" + player.getProfileIconId() + ".png"));
-                        Image image = imageIcon.getImage().getScaledInstance(75, 75,
+                    Image image = imageIcon.getImage().getScaledInstance(75, 75,
                                 java.awt.Image.SCALE_SMOOTH);
 
-                        imageIcon = new ImageIcon(image);
+                    imageIcon = new ImageIcon(image);
 
-                        playerProfileGUI.getProfilePic().setIcon(imageIcon);
-                    } catch (Exception exception) {
-                        exception.printStackTrace();
-                    }
+                    playerProfileGUI.getProfilePic().setIcon(imageIcon);
+
 
                     //set player variable's rank data. See rankData method for more information
 
@@ -103,8 +101,7 @@ public class Launcher implements ActionListener {
                     playerProfileGUI.getFrame().setVisible(true);
 
                 } else {
-                    System.out.println("You typed " + player.getName());
-                    startingGUI.getErrorLabel().setText("Incorrect username.. Try again!");
+                    startingGUI.getErrorLabel().setText("An Error Occured.");
                     startingGUI.getErrorLabel().setFont(font.deriveFont(18f));
                 }
 
