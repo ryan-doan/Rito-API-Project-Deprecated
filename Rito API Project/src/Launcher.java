@@ -1,8 +1,6 @@
 import Views.PlayerProfileGUI;
 import Views.StartingGUI;
 
-import javax.imageio.ImageIO;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -93,18 +91,6 @@ public class Launcher implements ActionListener {
                             .getScaledInstance(75, 75, Image.SCALE_SMOOTH);
                     Image flexQ = new ImageIcon(String.format("Emblem_%s.png",player.getFlex().getTier())).getImage()
                             .getScaledInstance(75, 75, Image.SCALE_SMOOTH);
-
-                    try {
-                        BufferedImage bi = new BufferedImage(75, 75,
-                                BufferedImage.TYPE_INT_ARGB);
-                        Graphics2D bGr = bi.createGraphics();
-                        bGr.drawImage(soloQ, 0, 0, null);
-                        bGr.dispose();
-                        File output = new File("soloQ.png");
-                        ImageIO.write(bi, "png", output);
-                    } catch (Exception exception) {
-                        exception.printStackTrace();
-                    }
 
                     playerProfileGUI.getSoloQPic().setIcon(new ImageIcon(soloQ));
                     playerProfileGUI.getSoloQText().setText(String.format("SoloQ\n%s %s", player.getSoloQ().getTier(),
