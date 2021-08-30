@@ -64,25 +64,43 @@ public class PlayerProfileGUI {
         rankedPanel.setBackground(grey);
         frame.add(rankedPanel);
 
-        soloQPic.setBounds(20, 20, 75, 75);
+        soloQPic.setBounds(20, 30, 75, 75);
         rankedPanel.add(soloQPic);
 
-        soloQText.setBounds(20, 100, 100, 50);
-        soloQText.setFont(font.deriveFont(12f));
+        JTextArea soloQHeader = new JTextArea();
+        soloQHeader.setBounds(20, 10, 100, 20);
+        soloQHeader.setFont(font.deriveFont(11f));
+        soloQHeader.setForeground(Color.white);
+        soloQHeader.setBackground(grey);
+        soloQHeader.setText("Solo/Duo");
+        soloQHeader.setEditable(false);
+        rankedPanel.add(soloQHeader);
+
+        soloQText.setBounds(20, 110, 100, 50);
+        soloQText.setFont(font.deriveFont(11f));
         soloQText.setForeground(Color.white);
         soloQText.setBackground(grey);
         soloQText.setEditable(false);
         rankedPanel.add(soloQText);
 
-        flexQPic.setBounds(150, 20, 75, 75);
+        flexQPic.setBounds(150, 30, 75, 75);
         rankedPanel.add(flexQPic);
 
-        flexQText.setBounds(150, 100, 100, 50);
-        flexQText.setFont(font.deriveFont(12f));
+        flexQText.setBounds(150, 110, 100, 50);
+        flexQText.setFont(font.deriveFont(11f));
         flexQText.setForeground(Color.white);
         flexQText.setBackground(grey);
         flexQText.setEditable(false);
         rankedPanel.add(flexQText);
+
+        JTextArea flexQHeader = new JTextArea();
+        flexQHeader.setBounds(150, 10, 100, 20);
+        flexQHeader.setFont(font.deriveFont(11f));
+        flexQHeader.setForeground(Color.white);
+        flexQHeader.setBackground(grey);
+        flexQHeader.setText("Flex");
+        flexQHeader.setEditable(false);
+        rankedPanel.add(flexQHeader);
 
         frame.setSize(300, 600);
         frame.setLocationRelativeTo(null);
