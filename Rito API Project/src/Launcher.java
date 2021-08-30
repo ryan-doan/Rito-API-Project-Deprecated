@@ -91,12 +91,12 @@ public class Launcher implements ActionListener {
                             .getScaledInstance(75, 75, Image.SCALE_SMOOTH);
 
                     playerProfileGUI.getSoloQPic().setIcon(new ImageIcon(soloQ));
-                    playerProfileGUI.getSoloQText().setText(String.format("SoloQ\n%s %s", player.getSoloQ().getTier(),
-                            player.getSoloQ().getRank()));
+                    playerProfileGUI.getSoloQText().setText(String.format("%s %s\n%d LP", player.getSoloQ().getTier(),
+                            player.getSoloQ().getRank(), player.getSoloQ().getLeaguePoints()));
 
                     playerProfileGUI.getFlexQPic().setIcon(new ImageIcon(flexQ));
-                    playerProfileGUI.getFlexQText().setText(String.format("Flex\n%s %s", player.getFlex().getTier(),
-                            player.getFlex().getRank()));
+                    playerProfileGUI.getFlexQText().setText(String.format("%s %s\n%d LP", player.getFlex().getTier(),
+                            player.getFlex().getRank(), player.getFlex().getLeaguePoints()));
 
                     playerProfileGUI.getFrame().setVisible(true);
 
@@ -179,34 +179,37 @@ public class Launcher implements ActionListener {
                 if (rankedData[1].equals("RANKED_SOLO_5x5")) {
                     //  see rankQueue method in this class
 
-                    player.setSoloQ(rankQueue(rankedData));
+                    player.setSoloQ(rankQueue(rankedData, 1));
                     player.setFlex(new RankQueue("RANKED_FLEX_SR"));
                 } else {
                     player.setSoloQ(new RankQueue("RANKED_SOLO_5x5"));
-                    player.setFlex(rankQueue(rankedData));
+                    player.setFlex(rankQueue(rankedData, 1));
                 }
 
             } else {  //both rank queue
 
-                player.setSoloQ(rankQueue(rankedData));
-                player.setFlex(new RankQueue(rankedData[14], rankedData[15], rankedData[16],
-                        Integer.parseInt(rankedData[19]), Integer.parseInt(rankedData[20]),
-                        Integer.parseInt(rankedData[21]), Boolean.parseBoolean(rankedData[22]),
-                        Boolean.parseBoolean(rankedData[23]), Boolean.parseBoolean(rankedData[24]),
-                        Boolean.parseBoolean(rankedData[25])));
+                if (rankedData[1].equals("RANKED_SOLO_5x5")) {
+                    player.setSoloQ(rankQueue(rankedData, 1));
+                    player.setFlex(rankQueue(rankedData, 14));
+                } else {
+                    player.setFlex(rankQueue(rankedData, 1));
+                    player.setSoloQ(rankQueue(rankedData, 14));
+                }  //  Sometimes Riot's API just decide to swap Flex and SoloQ around, requiring this check to make
+                   //  sure we don't swap the queues with each other.
+
             }
 
         }
 
     }
 
-    public RankQueue rankQueue(String[] rankedData) {
+    public RankQueue rankQueue(String[] rankedData, int index) {
 
-        return new RankQueue(rankedData[1], rankedData[2], rankedData[3],
-                Integer.parseInt(rankedData[6]), Integer.parseInt(rankedData[7]),
-                Integer.parseInt(rankedData[8]), Boolean.parseBoolean(rankedData[9]),
-                Boolean.parseBoolean(rankedData[10]), Boolean.parseBoolean(rankedData[11]),
-                Boolean.parseBoolean(rankedData[12]));
+        return new RankQueue(rankedData[index], rankedData[index + 1], rankedData[index + 2],
+                Integer.parseInt(rankedData[index + 5]), Integer.parseInt(rankedData[index + 6]),
+                Integer.parseInt(rankedData[index + 7]), Boolean.parseBoolean(rankedData[index + 8]),
+                Boolean.parseBoolean(rankedData[index + 9]), Boolean.parseBoolean(rankedData[index + 10]),
+                Boolean.parseBoolean(rankedData[index + 11]));
 
     }  //create a rankQueue object from the data in the String array
 
