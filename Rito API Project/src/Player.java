@@ -6,11 +6,16 @@ public class Player {
     //TODO since we can't access match history service right now, some variable types are speculative and might change
     // later on
 
+    //  Puuid
+
+    String puuid;
+
     //  Basic stats
 
     String champion;
     String ban;
-    int team; //  red or blue
+    boolean team; // True for red, false for blue.
+    boolean win;  //  1 for win, 0 for loss.
     int kills;
     int deaths;
     int assists;
@@ -58,16 +63,48 @@ public class Player {
 
     char[] abilityOrder = new char[18];
 
-    public Player(String champion, String ban, int team, int kills, int deaths, int assists, int gold, int cs,
+    public Player(String champion, boolean team, boolean win, int kills, int deaths, int assists, int gold, int cs,
                   Runes runes) {
         this.champion = champion;
-        this.ban = ban;
         this.team = team;
+        this.win = win;
         this.kills = kills;
         this.deaths = deaths;
         this.assists = assists;
         this.gold = gold;
         this.cs = cs;
         this.runes = runes;
+    }
+
+    public int getGold() {
+        return gold;
+    }
+
+    public int getCs() {
+        return cs;
+    }
+
+    public boolean getWin() {
+        return win;
+    }
+
+    public String getChampion() {
+        return champion;
+    }
+
+    public boolean getTeam() {
+        return team;
+    }
+
+    public int getKills() {
+        return kills;
+    }
+
+    public int getDeaths() {
+        return deaths;
+    }
+
+    public int getAssists() {
+        return assists;
     }
 }

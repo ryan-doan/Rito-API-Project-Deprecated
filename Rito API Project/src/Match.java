@@ -16,8 +16,8 @@ public class Match {
     String gameID;
     String queueType;
     Player[] players;
-    int matchTime;
-    int matchDate;
+    long matchTime;  //  In milliseconds
+    long matchDate;
 
     //  Team stats
     String[] redBans = new String[5];
@@ -49,4 +49,20 @@ public class Match {
 
     int redInhibs;
     int blueInhibs;
+
+    public Match() {
+
+    }
+
+    public long getMatchTime() {
+        return matchTime;
+    }
+
+    public long getMatchDate() {
+        return matchDate;
+    }
+
+    public void setMatchTime(long value) {
+        matchTime = value;
+    }
 }

@@ -38,6 +38,10 @@ public class Summoner {
         this.summonerLevel = summonerLevel;
     }
 
+    public String getPuuid() {
+        return puuid;
+    }
+
     public String getName() {
         return name;
     }
