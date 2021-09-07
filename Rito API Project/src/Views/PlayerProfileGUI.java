@@ -19,11 +19,19 @@ public class PlayerProfileGUI {
 
     //  Ranked panel
 
-    JPanel rankedPanel = new JPanel(null);
+    JPanel rankedPanel;
     JLabel soloQPic = new JLabel();
-    JTextArea soloQText = new JTextArea();
+    JTextArea soloQText;
     JLabel flexQPic = new JLabel();
-    JTextArea flexQText = new JTextArea();
+    JTextArea flexQText;
+
+    //  Match history panel;
+
+    JPanel matchHistory;
+    JTextArea kda;
+    JTextArea champion;
+    JLabel championPic = new JLabel();
+
 
     public static void main(String[] args) {
         new PlayerProfileGUI();
@@ -43,64 +51,48 @@ public class PlayerProfileGUI {
         panel = new JPanel(null);
         panel.setBackground(black);
 
-        infoPanel = new JPanel(null);
-        infoPanel.setBounds(20, 20, 245, 120);
-        infoPanel.setBackground(grey);
+        infoPanel = newJPanel(20, 20, 245, 120, grey);
         frame.add(infoPanel);
 
         profilePic = new JLabel();
         profilePic.setBounds(20, 20, 75, 75);
         infoPanel.add(profilePic);
 
-        nameAndLevel = new JTextArea();
-        nameAndLevel.setBounds(105, 20, 200, 100);
-        nameAndLevel.setFont(font.deriveFont(25f));
-        nameAndLevel.setForeground(Color.white);
-        nameAndLevel.setBackground(grey);
-        nameAndLevel.setEditable(false);
+        nameAndLevel = newJTextArea(105, 20, 200, 100,25f, Color.white, grey, "");
         infoPanel.add(nameAndLevel);
 
-        rankedPanel.setBounds(20, 150, 245,150);
-        rankedPanel.setBackground(grey);
+        rankedPanel = newJPanel(20, 150, 245, 150, grey);
         frame.add(rankedPanel);
 
         soloQPic.setBounds(20, 30, 75, 75);
         rankedPanel.add(soloQPic);
 
-        JTextArea soloQHeader = new JTextArea();
-        soloQHeader.setBounds(20, 10, 100, 20);
-        soloQHeader.setFont(font.deriveFont(11f));
-        soloQHeader.setForeground(Color.white);
-        soloQHeader.setBackground(grey);
-        soloQHeader.setText("Solo/Duo");
-        soloQHeader.setEditable(false);
+        JTextArea soloQHeader = newJTextArea(20,10,100,20,11f,Color.white, grey,
+                "Solo/Duo");
         rankedPanel.add(soloQHeader);
 
-        soloQText.setBounds(20, 110, 100, 50);
-        soloQText.setFont(font.deriveFont(11f));
-        soloQText.setForeground(Color.white);
-        soloQText.setBackground(grey);
-        soloQText.setEditable(false);
+        soloQText = newJTextArea(20,110,100,50,11f, Color.white, grey,"");
         rankedPanel.add(soloQText);
 
         flexQPic.setBounds(150, 30, 75, 75);
         rankedPanel.add(flexQPic);
 
-        flexQText.setBounds(150, 110, 100, 50);
-        flexQText.setFont(font.deriveFont(11f));
-        flexQText.setForeground(Color.white);
-        flexQText.setBackground(grey);
-        flexQText.setEditable(false);
+        flexQText = newJTextArea(150,110, 100,50,11f, Color.white, grey,"");
         rankedPanel.add(flexQText);
 
-        JTextArea flexQHeader = new JTextArea();
-        flexQHeader.setBounds(150, 10, 100, 20);
-        flexQHeader.setFont(font.deriveFont(11f));
-        flexQHeader.setForeground(Color.white);
-        flexQHeader.setBackground(grey);
-        flexQHeader.setText("Flex");
-        flexQHeader.setEditable(false);
+        JTextArea flexQHeader = newJTextArea(150,10,100,20,11f,Color.white, grey,
+                "Flex");
         rankedPanel.add(flexQHeader);
+
+        matchHistory = newJPanel(20,320,245, 120, grey);
+        frame.add(matchHistory);
+
+        kda = newJTextArea(100, 20,100,12,11f, Color.white, grey, "");
+        champion = newJTextArea(20, 20,50,12,11f, Color.white, grey, "");
+        championPic = newJLabel(20, 40, 50, 50);
+        matchHistory.add(kda);
+        matchHistory.add(champion);
+        matchHistory.add(championPic);
 
         frame.setSize(300, 600);
         frame.setLocationRelativeTo(null);
@@ -108,6 +100,38 @@ public class PlayerProfileGUI {
         frame.add(panel);
         frame.setResizable(false);
         frame.setVisible(false);
+    }
+
+    public JTextArea newJTextArea(int x, int y, int width, int height, float fontSize, Color foreground,
+                                  Color background, String text) {
+        JTextArea temp = new JTextArea();
+
+        temp.setBounds(x, y, width, height);
+        temp.setFont(font.deriveFont(fontSize));
+        temp.setForeground(foreground);
+        temp.setBackground(background);
+        temp.setText(text);
+        temp.setEditable(false);
+
+        return temp;
+    }
+
+    public JLabel newJLabel(int x, int y, int width, int height) {
+        JLabel temp = new JLabel();
+
+        temp.setBounds(x, y, width, height);
+
+
+        return temp;
+    }
+
+    public JPanel newJPanel(int x, int y, int width, int height, Color background) {
+        JPanel temp = new JPanel(null);
+
+        temp.setBounds(x, y, width, height);
+        temp.setBackground(background);
+
+        return temp;
     }
 
     public JFrame getFrame() {
@@ -140,5 +164,21 @@ public class PlayerProfileGUI {
 
     public JTextArea getFlexQText() {
         return flexQText;
+    }
+
+    public JTextArea getKda() {
+        return kda;
+    }
+
+    public JTextArea getChampion() {
+        return champion;
+    }
+
+    public JLabel getChampionPic() {
+        return championPic;
+    }
+
+    public JPanel getMatchHistory() {
+        return matchHistory;
     }
 }
